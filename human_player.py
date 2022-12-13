@@ -15,6 +15,7 @@ class HumanPlayer(Player):
             print('Invalid move! Please type: "i j dir".')
             return 0, 0, -1
         if not game.is_valid_move(i, j, direction):
+            print('Invalid move! Please type: "i j dir".')
             return 0, 0, -1
         return i, j, direction
 

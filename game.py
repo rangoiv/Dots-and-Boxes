@@ -40,7 +40,7 @@ class Game:
             self.horizontal_edges[i][j] = True
         elif direction == 'v':
             self.vertical_edges[i][j] = True
-        if self._update_scores(i, j, direction):
+        if not self._update_scores(i, j, direction):
             self.next_player()
 
     def _update_scores(self, i, j, direction):
@@ -75,6 +75,8 @@ class Game:
         return scored
 
     def _player_symbol(self, player):
+        if player == -1:
+            return ' '
         return str(player + 1)
 
     def print_board(self):
