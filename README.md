@@ -12,38 +12,53 @@ more boxes than your opponent.
 
 Run the main.py with your python editor.
 
-When you are prompted, type the move you wish to make, in the following fashion: i, j, dir.
-Here (i, j) are coordinates of the dot from which your edge is 
-going (starting from 0), and dir is character 'h' or 'v'. If dir is 'h' your edge will go
-from the dot (i, j) to the right and if dir is 'v' your edge will go downwards from (i, j).
+When you are prompted, type the move you wish to make, in the following fashion: x, y, dir.
+Here (x, y) are coordinates of the dot from which your edge is 
+going (starting from 1), and dir is character 'h' or 'v'. If dir is 'h' your edge will go
+from the dot (x, y) to the right and if dir is 'v' your edge will go downwards from (x, y).
 
 Here's an example:
 
-. . . .  
-        
-. . . .  
-        
-. . . .  
-        
-. . . .  
-Scores: X=0, O=0  
-Player X, enter your edge: 0 0 v
-   
 .-. . .  
-       
+         
 . . . .  
-        
+         
 . . . .  
-        
+          
 . . . .  
-Scores: X=0, O=0  
-Player O, enter your edge: ...
+Rangoiv turn  
+Enter your move: 1 1 v  
+.-. . .  
+         
+. . . .  
+  |      
+. . . .  
+         
+. . . .  
+Sparkles turn  
+.-. . .  
+         
+.-. . .  
+  |       
+. . . .  
+          
+. . . .  
+Rangoiv turn  
+Enter your move: 1 2 h  
+.-. . .  
+          
+.-. . .  
+  |       
+. .-. .  
+          
+. . . .
 
 
 ## Setting up the game
 
-You can change the size of the field, number of players or play against AI by setting
-the variables at the top of the main.py accordingly.
+You can start the game by running `main.py`. There you can
+also adjust the players who are playing and their parameters,
+by editing the `players` list.
 
-Enjoy playing! :)
+Enjoy playing!
 
