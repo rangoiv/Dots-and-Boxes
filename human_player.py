@@ -17,5 +17,3 @@ class HumanPlayer(Player):
             print('Invalid move! Please enter: "x y dir".')
             return 0, 0, -1
         return i, j, direction
-
-

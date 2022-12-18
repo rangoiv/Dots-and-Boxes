@@ -94,21 +94,21 @@ class Game:
     def _player_symbol(self, player):
         if player == -1:
             return ' '
-        return self.players[player].player_name[0]
+        return self.players[player].name[0]
 
     def print_move(self):
-        print(f'{self.players[self.current_player].player_name} turn')
+        print(f'{self.players[self.current_player].name} turn')
 
     def print_scores(self):
         print('Scores: ', end="")
-        print(', '.join([f'{self.players[i].player_name} = {self.scores[i]}' for i in range(len(self.players))]))
+        print(', '.join([f'{self.players[i].name} = {self.scores[i]}' for i in range(len(self.players))]))
 
     def print_winner(self):
         winner = self.better_player()
         if winner == -1:
             print("Game is over! It's draw")
         else:
-            print(f'Game is over! The winner is player {self.players[winner].player_name}.')
+            print(f'Game is over! The winner is player {self.players[winner].name}.')
 
     def better_player(self):
         first, second = sorted(((val, i) for i, val in enumerate(self.scores)), reverse=True)[:2]

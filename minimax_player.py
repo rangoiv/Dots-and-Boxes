@@ -4,8 +4,8 @@ from player import Player
 
 
 class MinimaxPlayer(Player):
-    def __init__(self, player_name, d=3):
-        super().__init__(player_name)
+    def __init__(self, name, d=3):
+        super().__init__(name)
         self.d = d
 
     def make_move(self, game):
