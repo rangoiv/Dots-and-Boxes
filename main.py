@@ -5,8 +5,8 @@ from human_player import HumanPlayer
 
 
 def main():
-    players = [HumanPlayer("Goran"), MinimaxPlayer("Minimax", 1)]
-    game = Game()
+    players = [SimplePlayer("Sparkles"), MinimaxPlayer("Minimax", d=7)]
+    game = Game(4, 4)
     game.run(players)
 
 

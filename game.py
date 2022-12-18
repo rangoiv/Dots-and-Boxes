@@ -1,7 +1,4 @@
-
 class Game:
-    N = 4
-    M = 4
     board = []
     edges_board = []
     horizontal_edges = []
@@ -9,6 +6,10 @@ class Game:
     scores = []
     current_player = 0
     players = []
+
+    def __init__(self, M=4, N=4):
+        self.M = M
+        self.N = N
 
     def run(self, players):
         # create an empty game board
@@ -23,17 +24,22 @@ class Game:
         self.scores = [0] * len(self.players)
 
         # create a loop that continues until the game is over
-        while True:
+        while not self.is_game_finished():
+            self.print_board()
+            self.print_move()
             i, j, direction = self.players[self.current_player].make_move(self)
             if direction == -1:
                 continue
-
             self.update_board(i, j, direction)
 
-            if self.is_game_finished():
-                print(f'Game is over! The winner is player {self.players[self.better_player()].player_name}')
-                self.print_board()
-                break
+        self.print_board()
+        self.print_scores()
+        self.print_winner()
+
+    def is_game_finished(self):
+        all_verticals = all(all(line) for line in self.vertical_edges)
+        all_horizontals = all(all(line) for line in self.horizontal_edges)
+        return all_verticals and all_horizontals
 
     def update_board(self, i, j, direction):
         if direction == 'h':
@@ -74,10 +80,8 @@ class Game:
                     self.board[i][j] = self.current_player
         return scored
 
-    def _player_symbol(self, player):
-        if player == -1:
-            return ' '
-        return str(player + 1)
+    def next_player(self):
+        self.current_player = (self.current_player + 1) % len(self.players)
 
     def print_board(self):
         # print the current state of the game board
@@ -86,22 +90,32 @@ class Game:
             if i < self.N - 1:
                 print(''.join([('|' if self.vertical_edges[i][j] else ' ') + "{:1s}".format(
                     self._player_symbol(self.board[i][j]) if j < self.M - 1 else "") for j in range(self.M)]))
-        # print the current self.scores
-        print(f'Scores: {self.players[0].player_name}={self.scores[0]}, {self.players[1].player_name}={self.scores[1]}')
 
-    def is_game_finished(self):
-        all_verticals = all(all(line) for line in self.vertical_edges)
-        all_horizontals = all(all(line) for line in self.horizontal_edges)
-        return all_verticals and all_horizontals
+    def _player_symbol(self, player):
+        if player == -1:
+            return ' '
+        return self.players[player].player_name[0]
+
+    def print_move(self):
+        print(f'{self.players[self.current_player].player_name} turn')
+
+    def print_scores(self):
+        print('Scores: ', end="")
+        print(', '.join([f'{self.players[i].player_name} = {self.scores[i]}' for i in range(len(self.players))]))
+
+    def print_winner(self):
+        winner = self.better_player()
+        if winner == -1:
+            print("Game is over! It's draw")
+        else:
+            print(f'Game is over! The winner is player {self.players[winner].player_name}.')
 
     def better_player(self):
-        _, i = max((val, i) for i, val in enumerate(self.scores))
-        return i
+        first, second = sorted(((val, i) for i, val in enumerate(self.scores)), reverse=True)[:2]
+        if first[0] == second[0]:
+            return -1
+        return first[1]
 
-    def next_player(self):
-        self.current_player = (self.current_player + 1) % len(self.players)
-
-    # =============== Edge detection methods ==============
     def find_3_square_edge(self):
         for i in range(self.N - 1):
             for j in range(self.M - 1):
